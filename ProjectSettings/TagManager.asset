@@ -41,6 +41,21 @@ TagManager:
   - name: Background
     uniqueID: 4273074807
     locked: 0
+  - name: Cloud
+    uniqueID: 2487522137
+    locked: 0
+  - name: Moutain
+    uniqueID: 2605035673
+    locked: 0
+  - name: Tree
+    uniqueID: 2301858021
+    locked: 0
+  - name: Player
+    uniqueID: 849830931
+    locked: 0
+  - name: Forground
+    uniqueID: 1217479463
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
