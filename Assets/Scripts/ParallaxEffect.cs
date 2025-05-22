@@ -14,7 +14,7 @@ public class ParallaxEffect : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
         float camDistance = cam.transform.position.x * parallaxEffect; // 0= di chuyen cung cam, 1 = khong di chuyen
         transform.position = new Vector3(statPos + camDistance, transform.position.y, transform.position.z);
