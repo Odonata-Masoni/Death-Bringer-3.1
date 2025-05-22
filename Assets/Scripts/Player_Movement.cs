@@ -8,6 +8,7 @@ public class Player_Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private float facingDirection = 1f;
 
     void Awake()
     {
@@ -27,6 +28,7 @@ public class Player_Movement : MonoBehaviour
 
         // Áp dụng vận tốc
         rb.velocity = newVelocity;
+        Flip(moveX);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -35,4 +37,17 @@ public class Player_Movement : MonoBehaviour
         // Chuẩn hóa vector input để tốc độ không đổi khi di chuyển chéo
         moveInput = moveInput.normalized;
     }
+    private void Flip(float moveX)
+    {
+        if(moveX>0.1f && facingDirection < 0)
+        {
+            facingDirection = 1f;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if (moveX < -0.1 && facingDirection > 0)
+        {
+            facingDirection = -1;
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }    
 }
