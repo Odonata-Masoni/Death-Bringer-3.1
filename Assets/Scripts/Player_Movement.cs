@@ -7,12 +7,14 @@ public class Player_Movement : MonoBehaviour
     public bool isGrounded = true;
 
     private Rigidbody2D rb;
+    private Animator animator;
     private Vector2 moveInput;
     private float facingDirection = 1f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -29,6 +31,7 @@ public class Player_Movement : MonoBehaviour
         // Áp dụng vận tốc
         rb.velocity = newVelocity;
         Flip(moveX);
+        UpdateAnimation(moveX);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -49,5 +52,9 @@ public class Player_Movement : MonoBehaviour
             facingDirection = -1;
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+    private void UpdateAnimation(float moveX)
+    {
+        animator.SetBool("isMoving", Mathf.Abs(moveX) > 0.1f);
     }    
 }
