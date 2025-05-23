@@ -52,7 +52,7 @@ public class Player_Movement : MonoBehaviour
         }
 
         // Giới hạn vận tốc rơi
-        moveY = Mathf.Max(moveY, gravity);
+        moveY = Mathf.Max(moveY,-20f);
 
         // Đặt vận tốc
         rb.velocity = new Vector2(moveX * moveSpeed, moveY);
