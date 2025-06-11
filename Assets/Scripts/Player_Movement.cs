@@ -19,8 +19,10 @@ public class Player_Movement : MonoBehaviour
     private float facingDirection = 1f;
     private bool isGrounded = true;
     private bool isJumping = false;
+    private bool isFalling = false;
     private float jumpVelocity; // Vận tốc nhảy
     private float gravity; // Trọng lực thủ công
+
 
     void Awake()
     {
@@ -56,6 +58,16 @@ public class Player_Movement : MonoBehaviour
 
         // Đặt vận tốc
         rb.velocity = new Vector2(moveX * moveSpeed, moveY);
+        // Kiểm tra đạt đỉnh nhảy để chuyển sang trạng thái rơi
+        if (rb.velocity.y > 0 && isJumping)
+        {
+            isFalling = false; // Đang nhảy lên
+        }
+        else if (rb.velocity.y <= 0 && !isGrounded)
+        {
+            isJumping = false; // Không còn nhảy
+            isFalling = true;  // Đang rơi
+        }
 
         // Đặt lại vận tốc Y khi chạm đất
         if (isGrounded && rb.velocity.y < 0)
@@ -117,18 +129,7 @@ public class Player_Movement : MonoBehaviour
         animator.SetBool("isMoving", Mathf.Abs(moveX) > 0.1f);
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("isFalling", isFalling);
     }
 
-    // Hiển thị vùng kiểm tra mặt đất trong Editor
-    void OnDrawGizmos()
-    {
-        if (capsulecollider2D != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(
-                capsulecollider2D.bounds.center + Vector3.down * groundCheckDistance,
-                capsulecollider2D.bounds.size
-            );
-        }
-    }
 }
